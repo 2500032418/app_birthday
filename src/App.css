@@ -21,55 +21,238 @@
   padding: 40px;
 }
 
-.kid-character {
-  position: relative;
-  display: inline-block;
+.welcome-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  color: #ffd166;
+  margin-bottom: 40px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.kids-group {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.kid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  animation: float-kid 3s ease-in-out infinite;
+}
+
+.kid-1 { animation-delay: 0s; }
+.kid-2 { animation-delay: 0.3s; }
+.kid-3 { animation-delay: 0.6s; }
+.kid-4 { animation-delay: 0.9s; }
+.kid-5 { animation-delay: 1.2s; }
+
+@keyframes float-kid {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
 }
 
 .kid-emoji {
-  font-size: 8rem;
-  animation: bounce-kid 2s ease-in-out infinite;
+  font-size: 4rem;
 }
 
-@keyframes bounce-kid {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-}
-
-.kid-speech {
-  position: absolute;
-  top: -120px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.speech-bubble {
+.kid-speech-mini {
   display: inline-block;
-  padding: 18px 24px;
+  padding: 10px 16px;
   background: #ffd166;
   color: #2d1b4e;
   font-weight: 600;
-  font-size: 1.1rem;
-  border-radius: 20px;
-  position: relative;
+  font-size: 0.85rem;
+  border-radius: 14px;
   white-space: nowrap;
+  position: relative;
 }
 
-.speech-bubble::after {
+.kid-speech-mini::after {
   content: '';
   position: absolute;
-  bottom: -14px;
+  bottom: -10px;
   left: 50%;
   transform: translateX(-50%);
-  border: 8px solid transparent;
+  border: 6px solid transparent;
   border-top-color: #ffd166;
 }
 
 .enter-btn {
-  margin-top: 80px;
+  margin-top: 10px;
   font-size: 1.2rem;
   padding: 18px 40px;
   animation: pulse 2s ease-in-out infinite;
+}
+
+/* ---------- giftbox screen ---------- */
+.giftbox-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  background: linear-gradient(160deg, #1a0533 0%, #2d1b4e 40%, #0f2027 100%);
+}
+
+.giftbox-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: #ffd166;
+  margin-bottom: 10px;
+}
+
+.giftbox-subtitle {
+  font-weight: 300;
+  font-size: 1.1rem;
+  color: #e8dff5;
+  margin-bottom: 40px;
+}
+
+.giftbox-wrapper {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.giftbox-wrapper:hover {
+  transform: scale(1.08);
+}
+
+.giftbox {
+  position: relative;
+  width: 180px;
+  height: 160px;
+}
+
+.giftbox-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 180px;
+  height: 110px;
+  background: linear-gradient(135deg, #ff5e7e, #ff9f1c);
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(255, 94, 126, 0.4);
+}
+
+.giftbox-body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.giftbox-lid {
+  position: absolute;
+  top: 0;
+  left: -10px;
+  width: 200px;
+  height: 50px;
+  background: linear-gradient(135deg, #ff5e7e, #ff9f1c);
+  border-radius: 10px;
+  box-shadow: 0 -4px 14px rgba(255, 94, 126, 0.3);
+  animation: lid-shake 2s ease-in-out infinite;
+}
+
+.giftbox-ribbon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: #ffd166;
+  border-radius: 50%;
+  box-shadow: 0 0 0 6px rgba(255, 209, 102, 0.3);
+}
+
+@keyframes lid-shake {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-4px) rotate(-2deg); }
+  75% { transform: translateY(-4px) rotate(2deg); }
+}
+
+.giftbox-hint {
+  margin-top: 30px;
+  font-size: 1rem;
+  color: #b8a8d9;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* ---------- wishes screen ---------- */
+.wishes-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  background: linear-gradient(160deg, #1a0533 0%, #2d1b4e 40%, #0f2027 100%);
+  overflow-y: auto;
+  padding: 40px 20px;
+}
+
+.wishes-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  color: #ffd166;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.wishes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  max-width: 700px;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.wish-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 22px 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
+  animation: wish-pop 0.5s ease both;
+}
+
+@keyframes wish-pop {
+  from { opacity: 0; transform: scale(0.7) translateY(30px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.wish-emoji {
+  font-size: 2rem;
+}
+
+.wish-name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #ffd166;
+}
+
+.wish-msg {
+  font-weight: 300;
+  font-size: 0.88rem;
+  color: #e8dff5;
+  text-align: center;
+  line-height: 1.5;
 }
 
 /* ---------- music button ---------- */

@@ -17,17 +17,21 @@ function useBirthdaySong() {
     if (ref.current) ref.current.contentWindow.postMessage(JSON.stringify({ event: 'command', func: cmd, args: [] }), '*')
   }
 
+  const play = () => {
+    postMessage('playVideo')
+    setPlaying(true)
+  }
+
   const toggle = () => {
     if (playing) {
       postMessage('pauseVideo')
       setPlaying(false)
     } else {
-      postMessage('playVideo')
-      setPlaying(true)
+      play()
     }
   }
 
-  return { playing, toggle, ref }
+  return { playing, toggle, play, ref }
 }
 
 function Confetti({ count = 120 }) {
@@ -113,11 +117,32 @@ export default function App() {
   const [candlesLit, setCandlesLit] = useState(true)
   const [wishRevealed, setWishRevealed] = useState(false)
   const [openCard, setOpenCard] = useState(null)
-  const [showWelcome, setShowWelcome] = useState(true)
-  const { playing, toggle, ref } = useBirthdaySong()
+  const [stage, setStage] = useState('welcome')
+  const { playing, toggle, play, ref } = useBirthdaySong()
+
+  const friendsWishes = [
+    { msg: 'Yaar tu best hai! Happy Birthday! 🎉', emoji: '🤝' },
+    { msg: 'Stay the same awesome person! ❤️', emoji: '💫' },
+    { msg: 'Party toh banti hai bhai! Happy Birthday! 🍕', emoji: '🍻' },
+    { msg: 'Wishing you all the happiness always! 🥰', emoji: '🌸' },
+    { msg: 'Age is just a number! Stay young forever! 💪', emoji: '😎' },
+    { msg: 'God bless you always! Happy Birthday! 🙏', emoji: '✨' },
+  ]
 
   const handleEnter = () => {
-    setShowWelcome(false)
+    if (ref.current) {
+      ref.current.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'unMute', args: [] }), '*')
+      ref.current.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: [] }), '*')
+    }
+    setStage('giftbox')
+  }
+
+  const handleOpenGift = () => {
+    setStage('wishes')
+  }
+
+  const handleSkipWishes = () => {
+    setStage('main')
   }
 
   const blowCandles = () => {
@@ -163,31 +188,75 @@ export default function App() {
     <div className="page">
       <iframe
         ref={ref}
-        width="0"
-        height="0"
-        style={{ position: 'absolute', top: '-9999px', left: '-9999px' }}
+        style={{ width: 0, height: 0, border: 'none', position: 'fixed', bottom: 0, right: 0, opacity: 0, pointerEvents: 'none' }}
         src="https://www.youtube.com/embed/weWr_5FFnVU?autoplay=1&enablejsapi=1"
         allow="autoplay"
         title="Background Music"
       />
 
-      {showWelcome ? (
+      {stage === 'welcome' ? (
         <div className="welcome-screen">
           <div className="welcome-card">
-            <div className="kid-character">
-              <div className="kid-emoji">👶</div>
-              <div className="kid-speech">
-                <span className="speech-bubble">
-                  Happy Birthday Bharat! 🎂
-                  <br />
-                  Aap sabse acche ho! 🥰
-                </span>
+            <h1 className="welcome-title">Someone special has a birthday today!</h1>
+            <div className="kids-group">
+              <div className="kid kid-1">
+                <span className="kid-emoji">👧</span>
+                <span className="kid-speech-mini">Happy Birthday Bharat! 🎂</span>
+              </div>
+              <div className="kid kid-2">
+                <span className="kid-emoji">👦</span>
+                <span className="kid-speech-mini">Party kahan hai? 🥳</span>
+              </div>
+              <div className="kid kid-3">
+                <span className="kid-emoji">🧒</span>
+                <span className="kid-speech-mini">Bharat bhaiya rocks! 🤩</span>
+              </div>
+              <div className="kid kid-4">
+                <span className="kid-emoji">👧</span>
+                <span className="kid-speech-mini">Cake kab milega? 🍰</span>
+              </div>
+              <div className="kid kid-5">
+                <span className="kid-emoji">👦</span>
+                <span className="kid-speech-mini">We love you Bharat! 🎈</span>
               </div>
             </div>
             <button className="btn enter-btn" onClick={handleEnter}>
               Click to Enter 🎉
             </button>
           </div>
+        </div>
+      ) : stage === 'giftbox' ? (
+        <div className="giftbox-screen">
+          <h1 className="giftbox-title">Hey Bharat!</h1>
+          <p className="giftbox-subtitle">Someone left a surprise for you 👀</p>
+          <div className="giftbox-wrapper" onClick={handleOpenGift}>
+            <div className="giftbox">
+              <div className="giftbox-lid">
+                <div className="giftbox-ribbon" />
+              </div>
+              <div className="giftbox-body" />
+            </div>
+          </div>
+          <p className="giftbox-hint">👆 Tap the gift to open it!</p>
+        </div>
+      ) : stage === 'wishes' ? (
+        <div className="wishes-screen">
+          <h1 className="wishes-title">Your friends have something to say! 💌</h1>
+          <div className="wishes-grid">
+            {friendsWishes.map((w, i) => (
+              <div
+                key={i}
+                className="wish-card"
+                style={{ animationDelay: `${i * 0.3}s` }}
+              >
+                <span className="wish-emoji">{w.emoji}</span>
+                <span className="wish-msg">{w.msg}</span>
+              </div>
+            ))}
+          </div>
+          <button className="btn enter-btn" onClick={handleSkipWishes}>
+            See the main surprise! 🎂
+          </button>
         </div>
       ) : (
         <>
