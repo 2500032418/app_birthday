@@ -800,3 +800,130 @@ p + p {
   font-weight: 300;
   color: #b8a8d9;
 }
+
+/* ---------- mobile responsive ---------- */
+@media (max-width: 600px) {
+  .welcome-card {
+    padding: 20px 14px;
+  }
+
+  .welcome-title {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+  }
+
+  .kids-group {
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .kid-emoji {
+    font-size: 2.8rem;
+  }
+
+  .kid-speech-mini {
+    font-size: 0.7rem;
+    padding: 8px 10px;
+    white-space: normal;
+    border-radius: 10px;
+  }
+
+  .enter-btn {
+    font-size: 1rem;
+    padding: 14px 28px;
+  }
+
+  .giftbox-title {
+    font-size: 1.6rem;
+  }
+
+  .giftbox-body {
+    width: 140px;
+    height: 85px;
+  }
+
+  .giftbox-lid {
+    width: 160px;
+    height: 40px;
+  }
+
+  .wishes-title {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+
+  .wishes-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 0 10px;
+  }
+
+  .wish-card {
+    padding: 16px 10px;
+  }
+
+  .wish-msg {
+    font-size: 0.78rem;
+  }
+
+  .title {
+    font-size: 2.8rem;
+  }
+
+  .subtitle {
+    font-size: 0.88rem;
+    padding: 0 10px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .gift-card {
+    padding: 18px 14px;
+    min-height: auto;
+  }
+
+  .letter-card {
+    padding: 22px 18px;
+    font-size: 0.92rem;
+  }
+
+  .cake {
+    width: 150px;
+    height: 120px;
+  }
+
+  .layer.bottom {
+    width: 130px;
+    height: 42px;
+  }
+
+  .layer.top {
+    width: 96px;
+    height: 34px;
+  }
+
+  .plate {
+    width: 160px;
+  }
+
+  .candles {
+    gap: 26px;
+  }
+
+  .music-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
+
+  .hint {
+    font-size: 0.8rem;
+  }
+
+  .wish-box {
+    padding: 20px 18px;
+  }
+}
