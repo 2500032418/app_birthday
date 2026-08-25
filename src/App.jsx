@@ -161,16 +161,6 @@ export default function App() {
 
   return (
     <div className="page">
-      <iframe
-        ref={ref}
-        width="0"
-        height="0"
-        style={{ position: 'absolute', top: '-9999px', left: '-9999px' }}
-        src="https://www.youtube.com/embed/weWr_5FFnVU?autoplay=1&enablejsapi=1"
-        allow="autoplay"
-        title="Background Music"
-      />
-
       {showWelcome ? (
         <div className="welcome-screen">
           <div className="welcome-card">
@@ -191,6 +181,16 @@ export default function App() {
         </div>
       ) : (
         <>
+          <iframe
+            ref={ref}
+            width="0"
+            height="0"
+            style={{ position: 'absolute', top: '-9999px', left: '-9999px' }}
+            src="https://youtu.be/6CXKtmRjOto?si=w8mRvm2M3l9N1ZT_"
+            allow="autoplay"
+            title="Background Music"
+          />
+
           <Confetti />
           <Balloons />
 
